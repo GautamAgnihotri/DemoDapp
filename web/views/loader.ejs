@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Template Mo">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/28e6af3592.js" crossorigin="anonymous"></script>
+    <title>Identity Management</title>
+<!--
+
+ART FACTORY
+
+https://templatemo.com/tm-537-art-factory
+
+-->
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/templatemo-art-factory.css">
+    <link rel="stylesheet" type="text/css" href="../public/assets/css/owl-carousel.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/Loader.css">
+
+    <!-- Metamask script linkage -->
+    <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
+    
+    <script>
+        
+var UserAddress="";
+
+
+window.addEventListener('load', async () => {
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+            await ethereum.enable();
+			UserAddress=web3.eth.coinbase;
+        } catch (error) {
+            alert("User denied account access...");
+        }
+    }
+    else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+		UserAddress=web3.eth.coinbase;
+    }
+    else {
+        alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+	var ABIString = document.getElementById("hdnContractABI").value;
+	ABIString = ABIString.replace(/'/g , "\"");
+	ABIJSON = JSON.parse(ABIString);
+	MyContract = web3.eth.contract(ABIJSON).at("<%=ContractAddress%>");
+	MyContract.viewUser.call(UserAddress,0,function(err, result){
+		if(!err)
+		{
+			
+			document.location.href="/home"
+			
+		}
+		else
+		{	document.location.href="/error1";
+			
+			
+			console.log(err)
+		}
+	});
+	
+});
+
+    </script>
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+     <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            
+            <input type="hidden" id="hdnContractABI" name="hdnContractABI" value="[{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'OrgCode','type':'uint256'},{'name':'ApprovalStatus','type':'uint256'}],'name':'UpdateRequestStatus','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'FullName','type':'string'},{'name':'EmailID','type':'string'},{'name':'MobileNo','type':'uint256'}],'name':'AddUser','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'RequestIndex','type':'uint256'}],'name':'ViewRequest','outputs':[{'name':'OrgCode','type':'uint256'},{'name':'ApprovalStatus','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'}],'name':'viewAadhar','outputs':[{'name':'AadharNo','type':'uint256'},{'name':'DOB','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'AadharNo','type':'uint256'},{'name':'DOB','type':'string'}],'name':'AddAadhar','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'OrgCode','type':'uint256'}],'name':'AddRequest','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'UserIndex','type':'uint256'}],'name':'viewUser','outputs':[{'name':'FullName','type':'string'},{'name':'EmailID','type':'string'},{'name':'MobileNo','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'}],'name':'getUserLength','outputs':[{'name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'}],'name':'ViewRequestLength','outputs':[{'name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'inputs':[],'payable':false,'stateMutability':'nonpayable','type':'constructor'}]">
+
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="#" class="logo"><i class="fa-solid fa-dice-d20"></i> Distro </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="#welcome" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="#about">About</a></li>
+                            <li class="scroll-to-section"><a href="#services">Services</a></li>
+                            <li class="scroll-to-section"><a href="#contact-us">Contact Us</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area" id="welcome">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text">
+            <div class="container text-center">
+                
+                    <div class="upperSec">
+                    <span class="loader"></span>
+                    </div>
+                    <div class="LowerSec">
+                        <span class="loading">L &nbsp; ading</span><span class="Dots"></span>
+                    </div>
+                
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+    </div>
+
+    
+    <!-- jQuery -->
+    <script src="../public/assets/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../public/assets/js/popper.js"></script>
+    <script src="../public/assets/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="../public/assets/js/owl-carousel.js"></script>
+    <script src="../public/assets/js/scrollreveal.min.js"></script>
+    <script src="../public/assets/js/waypoints.min.js"></script>
+    <script src="../public/assets/js/jquery.counterup.min.js"></script>
+    <script src="../public/assets/js/imgfix.min.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="../public/assets/js/custom.js"></script>
+
+  </body>
+</html>
